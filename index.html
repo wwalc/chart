@@ -1,94 +1,155 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+<head>
+	<meta charset='utf-8'>
+	<meta http-equiv="X-UA-Compatible" content="chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+	<link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+	<link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
 
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
 
-    <title>CKEditor Charts by wwalc</title>
-  </head>
+	<script src="//cdn.ckeditor.com/4.4.7/standard-all/ckeditor.js"></script>
+	<!-- Make sure to set correct paths -->
+	<link href="plugins/chart/chart.css" rel="stylesheet">
+	<script src="plugins/chart/lib/chart.min.js"></script>
+	<script src="plugins/chart/widget2chart.js"></script>
 
-  <body>
-    <header>
-      <div class="inner">
-        <h1>CKEditor Charts</h1>
-        <h2>Chart plugin for CKEditor</h2>
-        <a href="https://github.com/wwalc/chart" class="button"><small>View project on</small> GitHub</a>
-      </div>
-    </header>
+	<title>CKEditor Charts by wwalc</title>
+</head>
 
-    <div id="content-wrapper">
-      <div class="inner clearfix">
-        <section id="main-content">
-          <h1>
-<a id="ckeditor-chart-plugin" class="anchor" href="#ckeditor-chart-plugin" aria-hidden="true"><span class="octicon octicon-link"></span></a>CKEditor Chart Plugin</h1>
+<body>
+<header>
+	<div class="inner">
+		<h1>CKEditor Charts</h1>
 
-<p>This is a proof-of-concept plugin that adds support for injecting charts into CKEditor.
-To render charts, the <a href="http://www.chartjs.org/">Chart.js</a> library is used.
-The plugin serves as an example of using external JavaScript libraries in CKEditor, using the <a href="http://docs.ckeditor.com/#!/guide/widget_sdk_intro">widgets feature</a>. It has lots of comments inside to help you understand how it was built.</p>
+		<h2>Chart plugin for CKEditor</h2>
+		<a href="https://github.com/wwalc/chart" class="button">
+			<small>View project on</small>
+			GitHub</a>
+	</div>
+</header>
 
-<h2>
-<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h2>
+<div id="content-wrapper">
+	<div class="inner clearfix">
+		<section id="main-content">
+			<h1>
+				<a id="ckeditor-chart-plugin" class="anchor" href="#ckeditor-chart-plugin" aria-hidden="true"><span
+						class="octicon octicon-link"></span></a>CKEditor Chart Plugin</h1>
 
-<ol>
-<li>Put the plugin into the CKEditor "plugins" folder.</li>
-<li>Enable the plugin with <code>config.extraPlugins</code>
-</li>
-<li>Add the <code>Chart</code> button to the toolbar if it will not appear automatically.</li>
-</ol>
+			<p>This is a proof-of-concept plugin that adds support for injecting charts into CKEditor.
+				To render charts, the <a href="http://www.chartjs.org/">Chart.js</a> library is used.
+				The plugin serves as an example of using external JavaScript libraries in CKEditor, using the <a
+						href="http://docs.ckeditor.com/#!/guide/widget_sdk_intro">widgets feature</a>. It has lots of
+				comments inside to help you understand how it was built.</p>
 
-<p>In case of any problems with installation, there is a sample available: (<code>samples/chart.html</code>), which should work out of the box.</p>
+			<h2>
+				<a id="demo" class="anchor" href="#demo" aria-hidden="true"><span
+						class="octicon octicon-link"></span></a>Demo</h2>
 
-<h2>
-<a id="rendering-charts-on-a-website" class="anchor" href="#rendering-charts-on-a-website" aria-hidden="true"><span class="octicon octicon-link"></span></a>Rendering charts on a website</h2>
+			<form action="sample_posteddata.php" method="post">
+		<textarea cols="80" id="editor1" name="editor1" rows="10" style="height:500px">
+			&lt;p&gt;Will you make a new year's resolution next year?&lt;/p&gt;
+			&lt;div class=&quot;chartjs&quot; data-chart-height=&quot;200&quot; data-chart=&quot;doughnut&quot; data-chart-value=&quot;[{&amp;quot;value&amp;quot;:45,&amp;quot;label&amp;quot;:&amp;quot;Yes&amp;quot;},{&amp;quot;value&amp;quot;:25,&amp;quot;label&amp;quot;:&amp;quot;No&amp;quot;},{&amp;quot;value&amp;quot;:30,&amp;quot;label&amp;quot;:&amp;quot;Undecided&amp;quot;}]&quot;&gt;chart&lt;/div&gt;
+			&lt;p&gt;Net income for 2013 (in millions of US dollars):&lt;/p&gt;
+			&lt;div class=&quot;chartjs&quot; data-chart-height=&quot;200&quot; data-chart=&quot;bar&quot; data-chart-value=&quot;[{&amp;quot;value&amp;quot;:22,&amp;quot;label&amp;quot;:&amp;quot;Q1 2013&amp;quot;},{&amp;quot;value&amp;quot;:25,&amp;quot;label&amp;quot;:&amp;quot;Q2 2013&amp;quot;},{&amp;quot;value&amp;quot;:31,&amp;quot;label&amp;quot;:&amp;quot;Q3 2013&amp;quot;},{&amp;quot;value&amp;quot;:36,&amp;quot;label&amp;quot;:&amp;quot;Q4 2013&amp;quot;}]&quot;&gt;chart&lt;/div&gt;
+		</textarea>
+				<script>
 
-<p>Chart created in CKEditor is represented as a simple <code>&lt;div&gt;</code> element with data attributes. This is by design, because such a simplified form allows you to re-edit the chart in the future. It ensures that your content will be future-proof, allowing you to to use different styling for charts embed on your website when you redesign it or to use the future major versions of Chart.js library with different API/features.</p>
+					// This line is only required if CKEditor is loaded from a CDN.
+					CKEDITOR.plugins.addExternal('chart', '/chart/plugins/chart/', 'plugin.js');
 
-<p>To convert <code>&lt;div&gt;</code> elements into charts, include <code>chart.min.js</code> and <code>widget2chart.js</code> on your website. See <code>samples/chart.html</code> for an example.</p>
+					CKEDITOR.addCss('div.featured { border: 3px dotted red }');
+					CKEDITOR.replace('editor1', {
+						extraPlugins: 'chart',
+						toolbar: [
+							['Source', 'Preview'], ['Undo', 'Redo'], ['Styles', 'Bold', 'Italic', 'Underline'], ['Chart']
+						],
+						stylesSet: [
+							{name: 'Featured', type: 'widget', widget: 'chart', attributes: {'class': 'featured'}},
+							{name: 'Italic', element: 'p', styles: {'font-style': 'italic'}}
+						],
+						height: 560,
+						width: 650
+					});
 
-<h2>
-<a id="screenshot" class="anchor" href="#screenshot" aria-hidden="true"><span class="octicon octicon-link"></span></a>Screenshot</h2>
+				</script>
+			</form>
 
-<p><img src="http://s10.postimg.org/efvmb3fmh/chartjs.png" alt="Charts in CKEditor"></p>
 
-<h2>
-<a id="the-future-of-this-plugin" class="anchor" href="#the-future-of-this-plugin" aria-hidden="true"><span class="octicon octicon-link"></span></a>The future of this plugin</h2>
+			<h2>
+				<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span
+						class="octicon octicon-link"></span></a>Installation</h2>
 
-<p>For now, this is a proof-of-concept plugin. However if you would like to leave any feedback, fill a future request, report a bug etc., feel free to do so.</p>
+			<ol>
+				<li>Put the plugin into the CKEditor "plugins" folder.</li>
+				<li>Enable the plugin with <code>config.extraPlugins</code>
+				</li>
+				<li>Add the <code>Chart</code> button to the toolbar if it will not appear automatically.</li>
+			</ol>
 
-<h3>
-<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h3>
+			<pre>CKEDITOR.replace( 'editor1', {
+	extraPlugins: 'chart'
+}</pre>
+			<p>In case of any problems with the installation, check <a href="http://wwalc.github.io/chart/sample.html">this sample</a>.
 
-<p>Licensed under the GPL, LGPL and MPL licenses, at your choice.</p>
+			<h2>
+				<a id="rendering-charts-on-a-website" class="anchor" href="#rendering-charts-on-a-website"
+				   aria-hidden="true"><span class="octicon octicon-link"></span></a>Rendering charts on a website</h2>
 
-<p>For full details about the license, please check the LICENSE.md file.</p>
-        </section>
+			<p>Chart created in CKEditor is represented as a simple <code>&lt;div&gt;</code> element with data
+				attributes. This is by design, because such a simplified form allows you to re-edit the chart in the
+				future. It ensures that your content will be future-proof, allowing you to to use different styling for
+				charts embed on your website when you redesign it or to use the future major versions of Chart.js
+				library with different API/features.</p>
 
-        <aside id="sidebar">
-          <a href="https://github.com/wwalc/chart/zipball/master" class="button">
-            <small>Download</small>
-            .zip file
-          </a>
-          <a href="https://github.com/wwalc/chart/tarball/master" class="button">
-            <small>Download</small>
-            .tar.gz file
-          </a>
+			<p>To convert <code>&lt;div&gt;</code> elements into charts, simply include <code>chart.min.js</code> and <code>widget2chart.js</code>
+				on your website. See <a href="http://wwalc.github.io/chart/sample.html">this sample</a> in case of any issues.</p>
 
-          <p class="repo-owner"><a href="https://github.com/wwalc/chart"></a> is maintained by <a href="https://github.com/wwalc">wwalc</a>.</p>
+			<h2>
+				<a id="the-future-of-this-plugin" class="anchor" href="#the-future-of-this-plugin"
+				   aria-hidden="true"><span class="octicon octicon-link"></span></a>The future of this plugin</h2>
 
-          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
-        </aside>
-      </div>
-    </div>
+			<p>For now, this is a proof-of-concept plugin. However if you would like to leave any feedback, fill a
+				future request, report a bug etc., feel free to do so.</p>
 
-  
-  </body>
+			<h2>
+				<a id="browser-compatibility" class="anchor" href="#browser-compatibility"
+				   aria-hidden="true"><span class="octicon octicon-link"></span></a>Browser compatibility</h2>
+
+			<p>Any modern browser should be supported. <strong>IE8 is not supported.</strong></p>
+			<h3>
+				<a id="license" class="anchor" href="#license" aria-hidden="true"><span
+						class="octicon octicon-link"></span></a>License</h3>
+
+			<p>Licensed under the GPL, LGPL and MPL licenses, at your choice.</p>
+
+			<p>For full details about the license, please check the LICENSE.md file.</p>
+		</section>
+
+		<aside id="sidebar">
+			<a href="https://github.com/wwalc/chart/zipball/master" class="button">
+				<small>Download</small>
+				.zip file
+			</a>
+			<a href="https://github.com/wwalc/chart/tarball/master" class="button">
+				<small>Download</small>
+				.tar.gz file
+			</a>
+
+			<p class="repo-owner"><a href="https://github.com/wwalc/chart"></a> is maintained by <a
+					href="https://github.com/wwalc">wwalc</a>.</p>
+
+			<p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme
+				by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+		</aside>
+	</div>
+</div>
+
+
+</body>
 </html>
