@@ -1,4 +1,4 @@
 [submodule "plugins/chart"]
 	path = plugins/chart
-	url = git@github.com:wwalc/chart.git
+	url = https://github.com/wwalc/chart.git
 	branch = master
