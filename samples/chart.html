@@ -1,6 +1,6 @@
 ﻿<!DOCTYPE html>
 <!--
-Copyright (c) 2003-2014, CKSource - Frederico Knabben. All rights reserved.
+Copyright (c) 2003-2015, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.md or http://ckeditor.com/license
 -->
 <html>
@@ -40,9 +40,9 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 	<form action="sample_posteddata.php" method="post">
 		<textarea cols="80" id="editor1" name="editor1" rows="10" style="height:500px">
 			&lt;p&gt;Will you make a new year's resolution next year?&lt;/p&gt;
-			&lt;div class=&quot;chartjs&quot; data-chart=&quot;doughnut&quot; data-chart-value=&quot;[{&amp;quot;value&amp;quot;:45,&amp;quot;label&amp;quot;:&amp;quot;Yes&amp;quot;},{&amp;quot;value&amp;quot;:25,&amp;quot;label&amp;quot;:&amp;quot;No&amp;quot;},{&amp;quot;value&amp;quot;:30,&amp;quot;label&amp;quot;:&amp;quot;Undecided&amp;quot;}]&quot;&gt;chart&lt;/div&gt;
+			&lt;div class=&quot;chartjs&quot; data-chart-height=&quot;200&quot; data-chart=&quot;doughnut&quot; data-chart-value=&quot;[{&amp;quot;value&amp;quot;:45,&amp;quot;label&amp;quot;:&amp;quot;Yes&amp;quot;},{&amp;quot;value&amp;quot;:25,&amp;quot;label&amp;quot;:&amp;quot;No&amp;quot;},{&amp;quot;value&amp;quot;:30,&amp;quot;label&amp;quot;:&amp;quot;Undecided&amp;quot;}]&quot;&gt;chart&lt;/div&gt;
 			&lt;p&gt;Net income for 2013 (in millions of US dollars):&lt;/p&gt;
-			&lt;div class=&quot;chartjs&quot; data-chart=&quot;bar&quot; data-chart-value=&quot;[{&amp;quot;value&amp;quot;:22,&amp;quot;label&amp;quot;:&amp;quot;Q1 2013&amp;quot;},{&amp;quot;value&amp;quot;:25,&amp;quot;label&amp;quot;:&amp;quot;Q2 2013&amp;quot;},{&amp;quot;value&amp;quot;:31,&amp;quot;label&amp;quot;:&amp;quot;Q3 2013&amp;quot;},{&amp;quot;value&amp;quot;:36,&amp;quot;label&amp;quot;:&amp;quot;Q4 2013&amp;quot;}]&quot;&gt;chart&lt;/div&gt;
+			&lt;div class=&quot;chartjs&quot; data-chart-height=&quot;300&quot; data-chart=&quot;bar&quot; data-chart-value=&quot;[{&amp;quot;value&amp;quot;:22,&amp;quot;label&amp;quot;:&amp;quot;Q1 2013&amp;quot;},{&amp;quot;value&amp;quot;:25,&amp;quot;label&amp;quot;:&amp;quot;Q2 2013&amp;quot;},{&amp;quot;value&amp;quot;:31,&amp;quot;label&amp;quot;:&amp;quot;Q3 2013&amp;quot;},{&amp;quot;value&amp;quot;:36,&amp;quot;label&amp;quot;:&amp;quot;Q4 2013&amp;quot;}]&quot;&gt;chart&lt;/div&gt;
 		</textarea>
 		<script>
 
@@ -53,10 +53,10 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 				],
 				stylesSet: [
 					{ name: 'Featured', type: 'widget', widget: 'chart', attributes: { 'class': 'featured' } },
-					{ name: 'Italic Title',		element: 'h2', styles: { 'font-style': 'italic' } }
+					{ name: 'Italic Title',	element: 'h2', styles: { 'font-style': 'italic' } }
 				],
-				height: 220,
-				width:600
+				height: 500,
+				width: 600
 			} );
 
 		</script>
@@ -68,7 +68,7 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 	<p>CKEditor returns a div element, which needs to be converted into a chart by Chart.js. This is done automatically, after adding two JavaScript files to a website.</p>
 	</div>
 	<p>Will you make a new year&#39;s resolution next year?</p>
-	<div class="chartjs" data-chart="doughnut" data-chart-value="[{&quot;value&quot;:45,&quot;label&quot;:&quot;Yes&quot;},{&quot;value&quot;:25,&quot;label&quot;:&quot;No&quot;},{&quot;value&quot;:30,&quot;label&quot;:&quot;Undecided&quot;}]">chart</div>
+	<div class="chartjs" data-chart="doughnut" data-chart-height="200" data-chart-value="[{&quot;value&quot;:45,&quot;label&quot;:&quot;Yes&quot;},{&quot;value&quot;:25,&quot;label&quot;:&quot;No&quot;},{&quot;value&quot;:30,&quot;label&quot;:&quot;Undecided&quot;}]">chart</div>
 
 	<div id="footer">
 		<hr>
@@ -76,7 +76,7 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 			CKEditor - The text editor for the Internet - <a class="samples" href="http://ckeditor.com/">http://ckeditor.com</a>
 		</p>
 		<p id="copy">
-			Copyright &copy; 2003-2014, <a class="samples" href="http://cksource.com/">CKSource</a> - Frederico
+			Copyright &copy; 2003-2015, <a class="samples" href="http://cksource.com/">CKSource</a> - Frederico
 			Knabben. All rights reserved.
 		</p>
 	</div>
