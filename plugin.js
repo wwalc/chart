@@ -232,6 +232,80 @@
 				}
 			};
 
+			function renderChart( canvas, data, legend ) {
+				var values = data.values,
+					chartType = data.chart;
+
+				// The code below is the same as in widget2chart.js.
+				// ########## RENDER CHART START ##########
+				// Prepare canvas and chart instance.
+				var i, ctx = canvas.getContext( '2d' ),
+					chart = new Chart( ctx ); // jshint ignore:line
+
+				// Set some extra required colors by Pie/Doughnut charts.
+				// Ugly charts will be drawn if colors are not provided for each data.
+				// http://www.chartjs.org/docs/#doughnut-pie-chart-data-structure
+				if ( chartType != 'bar' ) {
+					for ( i = 0; i < values.length; i++ ) {
+						values[i].color = colors.data[i];
+						values[i].highlight = colors.data[i];
+					}
+				}
+
+				// Prepare data for bar/line charts.
+				if ( chartType == 'bar' || chartType == 'line' ) {
+					var data = {
+						// Chart.js supports multiple datasets.
+						// http://www.chartjs.org/docs/#bar-chart-data-structure
+						// This plugin is simple, so it supports just one.
+						// Need more features? Create a Pull Request :-)
+						datasets: [
+							{
+								label: '',
+								fillColor: colors.fillColor,
+								strokeColor: colors.strokeColor,
+								highlightFill: colors.highlightFill,
+								highlightStroke: colors.highlightStroke,
+								data: []
+							} ],
+						labels: []
+					};
+					// Bar charts accept different data format than Pie/Doughnut.
+					// We need to pass values inside datasets[0].data.
+					for ( i = 0; i < values.length; i++ ) {
+						if ( values[i].value ) {
+							data.labels.push( values[i].label );
+							data.datasets[0].data.push( values[i].value );
+						}
+					}
+					// Legend makes sense only with more than one dataset.
+					legend.innerHTML = '';
+				}
+
+				// Render Bar chart.
+				if ( chartType == 'bar' ) {
+					chart.Bar( data, config.Bar );
+				}
+				// Render Line chart.
+				else if ( chartType == 'line' ) {
+					chart.Line( data, config.Line );
+				}
+				// Render Line chart.
+				else if ( chartType == 'polar' ) {
+					//chart.PolarArea( values );
+					legend.innerHTML = chart.PolarArea( values, config.PolarArea ).generateLegend();
+				}
+				// Render Pie chart and legend.
+				else if ( chartType == 'pie' ) {
+					legend.innerHTML = chart.Pie( values, config.Pie ).generateLegend();
+				}
+				// Render Doughnut chart and legend.
+				else {
+					legend.innerHTML = chart.Doughnut( values, config.Doughnut ).generateLegend();
+				}
+				// ########## RENDER CHART END ##########
+			}
+
 			// Here we define the widget itself.
 			editor.widgets.add( 'chart', {
 				// The *label* for the button. The button *name* is assigned automatically based on the widget name.
@@ -279,83 +353,16 @@
 					canvas.replace( this.element.getChild( 0 ) );
 
 					// Unify variable names with the one used in widget2chart.js.
-					var values = this.data.values,
-						chartType = this.data.chart,
-						legend = this.element.getChild( 1 ).$;
+					var legend = this.element.getChild( 1 ).$;
 					canvas = canvas.$;
 
 					// IE8 can't handle the next part (without the help of excanvas etc.).
 					if ( !canvas.getContext )
 						return;
 
-					// The code below is the same as in widget2chart.js.
-					// ########## RENDER CHART START ##########
-					// Prepare canvas and chart instance.
-					var i, ctx = canvas.getContext( '2d' ),
-						chart = new Chart( ctx ); // jshint ignore:line
-
-					// Set some extra required colors by Pie/Doughnut charts.
-					// Ugly charts will be drawn if colors are not provided for each data.
-					// http://www.chartjs.org/docs/#doughnut-pie-chart-data-structure
-					if ( chartType != 'bar' ) {
-						for ( i = 0; i < values.length; i++ ) {
-							values[i].color = colors.data[i];
-							values[i].highlight = colors.data[i];
-						}
-					}
-
-					// Prepare data for bar/line charts.
-					if ( chartType == 'bar' || chartType == 'line' ) {
-						var data = {
-							// Chart.js supports multiple datasets.
-							// http://www.chartjs.org/docs/#bar-chart-data-structure
-							// This plugin is simple, so it supports just one.
-							// Need more features? Create a Pull Request :-)
-							datasets: [
-								{
-									label: '',
-									fillColor: colors.fillColor,
-									strokeColor: colors.strokeColor,
-									highlightFill: colors.highlightFill,
-									highlightStroke: colors.highlightStroke,
-									data: []
-								} ],
-							labels: []
-						};
-						// Bar charts accept different data format than Pie/Doughnut.
-						// We need to pass values inside datasets[0].data.
-						for ( i = 0; i < values.length; i++ ) {
-							if ( values[i].value ) {
-								data.labels.push( values[i].label );
-								data.datasets[0].data.push( values[i].value );
-							}
-						}
-						// Legend makes sense only with more than one dataset.
-						legend.innerHTML = '';
-					}
-
-					// Render Bar chart.
-					if ( chartType == 'bar' ) {
-						chart.Bar( data, config.Bar );
-					}
-					// Render Line chart.
-					else if ( chartType == 'line' ) {
-						chart.Line( data, config.Line );
-					}
-					// Render Line chart.
-					else if ( chartType == 'polar' ) {
-						//chart.PolarArea( values );
-						legend.innerHTML = chart.PolarArea( values, config.PolarArea ).generateLegend();
-					}
-					// Render Pie chart and legend.
-					else if ( chartType == 'pie' ) {
-						legend.innerHTML = chart.Pie( values, config.Pie ).generateLegend();
-					}
-					// Render Doughnut chart and legend.
-					else {
-						legend.innerHTML = chart.Doughnut( values, config.Doughnut ).generateLegend();
-					}
-					// ########## RENDER CHART END ##########
+					var data = this.data;
+					// Without timeout the chart does not render immediately after inserting into the editing area.
+					setTimeout( function() { renderChart( canvas, data, legend ) }, 0 );
 				},
 
 				// ACF settings. Without allowing elements introduced by this plugin, CKEditor built-in filter would remove it.
