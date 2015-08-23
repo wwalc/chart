@@ -394,6 +394,7 @@
 							label: this.data.values[i].label
 						} );
 					}
+
 					// Create the downcasted form of a widget (a simple <div>).
 					var el = new CKEDITOR.htmlParser.element( 'div', {
 						// We could pass here hardcoded "chartjs" class, but this way we would lose here all the classes applied through the Styles dropdown.
@@ -401,7 +402,9 @@
 						'class': element.attributes['class'],
 						'data-chart': this.data.chart,
 						'data-chart-height': this.data.height,
-						'data-chart-value': CKEDITOR.tools.htmlEncodeAttr( JSON.stringify( data ) )
+						// Feature detection (editor.getSelectedHtml) to check if CKEditor 4.5+ is used.
+						// CKEditor < 4.5 and CKEditor 4.5+ require different code due to https://dev.ckeditor.com/ticket/13105
+						'data-chart-value': editor.getSelectedHtml ? JSON.stringify( data ) : CKEDITOR.tools.htmlEncodeAttr( JSON.stringify( data ) )
 					} );
 					return el;
 				}
