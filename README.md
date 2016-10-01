@@ -18,7 +18,7 @@ View [live demo](http://wwalc.github.io/chart/).
 <pre>
 CKEDITOR.replace( 'editor1', {
     extraPlugins: 'chart'
-}
+} );
 </pre>
 
 In case of any problems with installation, there is [an online sample](http://wwalc.github.io/chart/sample.html) available that should help you get started.
@@ -58,7 +58,7 @@ config.chart_colors =
 	highlightStroke: 'rgba(151,187,205,1)',
 	// Colors for Doughnut/Pie/PolarArea charts.
 	data: [ '#B33131', '#B66F2D', '#B6B330', '#71B232', '#33B22D', '#31B272', '#2DB5B5', '#3172B6', '#3232B6', '#6E31B2', '#B434AF', '#B53071' ]
-}
+};
 </pre>
 
 ### config.chart_configBar
