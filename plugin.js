@@ -20,7 +20,7 @@
 		// Name of the file in the "icons" folder
 		icons: 'chart',
 		// Supported languages
-		lang: 'en,es,eu,pl',
+		lang: 'de,en,es,eu,pl',
 
 		// Load library that renders charts inside CKEditor, if Chart object is not already available.
 		afterInit: function() {
