@@ -14,6 +14,17 @@
 // TODO IE8 fallback to a table maybe?
 // TODO a11y http://www.w3.org/html/wg/wiki/Correct_Hidden_Attribute_Section_v4
 ( function() {
+
+	function encodeData(data)
+	{
+		return JSON.stringify(data).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&apos;');
+	}
+
+	function decodeData(str)
+	{
+		return JSON.parse(str.replace(/&apos;/g, "'").replace(/&quot;/g, '"').replace(/&gt;/g, '>').replace(/&lt;/g, '<').replace(/&amp;/g, '&'));
+	}
+
 	CKEDITOR.plugins.add( 'chart', {
 		// Required plugins
 		requires: 'widget,dialog',
@@ -324,7 +335,11 @@
 				init: function() {
 					// When an empty widget is initialized after clicking a button in the toolbar, we do not have yet chart values.
 					if ( this.element.data( 'chart-value' ) ) {
-						this.setData( 'values', JSON.parse( this.element.data( 'chart-value' ) ) );
+						try {
+							this.setData('values', decodeData(this.element.data('chart-value')));
+						} catch(e) {							
+							alert('Loading the chart values failed');
+						}
 					}
 					// Chart is specified in a template, so it is available even in an empty widget.
 					this.setData( 'chart', this.element.data( 'chart' ) );
@@ -409,10 +424,9 @@
 						'class': element.attributes['class'],
 						'data-chart': this.data.chart,
 						'data-chart-height': this.data.height,
-						// Feature detection (editor.getSelectedHtml) to check if CKEditor 4.5+ is used.
-						// CKEditor < 4.5 and CKEditor 4.5+ require different code due to https://dev.ckeditor.com/ticket/13105
-						'data-chart-value': editor.getSelectedHtml ? JSON.stringify( data ) : CKEDITOR.tools.htmlEncodeAttr( JSON.stringify( data ) )
+						'data-chart-value': encodeData(data)
 					} );
+
 					return el;
 				}
 			} );
