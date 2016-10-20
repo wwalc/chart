@@ -15,6 +15,12 @@
 // For IE8 and below the code will not be executed.
 if ( typeof document.addEventListener !== 'undefined' )
 	document.addEventListener( 'DOMContentLoaded', function() {
+
+	function decodeData(str)
+	{
+		return JSON.parse(str.replace(/&apos;/g, "'").replace(/&quot;/g, '"').replace(/&gt;/g, '>').replace(/&lt;/g, '<').replace(/&amp;/g, '&'));
+	}
+
 	// Make sure Chart.js is enabled on a page.
 	if ( typeof Chart === 'undefined' ) {
 		if ( typeof console !== 'undefined' ) {
@@ -68,7 +74,7 @@ if ( typeof document.addEventListener !== 'undefined' )
 
 			// Get chart information from data attributes.
 			var chartType = el.getAttribute( 'data-chart' ),
-				values = JSON.parse( el.getAttribute( 'data-chart-value' ) );
+				values = decodeData(el.getAttribute('data-chart-value'));
 
 			// Malformed element, exit.
 			if ( !values || !values.length || !chartType )
